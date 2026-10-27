@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spring Boot + Thymeleaf + jQuery 샘플</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<main class="container">
+    <header class="page-head">
+        <h1>할 일 목록</h1>
+        <p class="meta">
+            Spring Boot <strong th:text="${bootVersion}">3.5.2</strong> ·
+            서버 렌더링 시각 <span th:text="${#temporals.format(renderedAt, 'yyyy-MM-dd HH:mm:ss')}">-</span>
+        </p>
+    </header>
+
+    <section class="card">
+        <h2>1. Thymeleaf 서버 렌더링</h2>
+        <p class="hint">페이지를 처음 열 때 서버가 그린 목록입니다(<code>th:each</code>).</p>
+        <ul class="plain">
+            <li th:each="todo : ${todos}" th:text="${todo.title}">할 일</li>
+            <li th:if="${#lists.isEmpty(todos)}" class="empty">할 일이 없습니다.</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>2. jQuery Ajax</h2>
+        <p class="hint">아래 목록은 jQuery가 <code>/api/todos</code>를 호출해 그립니다. 추가·완료·삭제가 새로고침 없이 반영됩니다.</p>
+
+        <form id="todoForm" class="todo-form" autocomplete="off">
+            <input type="text" id="todoTitle" name="title" maxlength="100" placeholder="새 할 일을 입력하세요">
+            <button type="submit">추가</button>
+        </form>
+        <p id="message" class="message" role="status"></p>
+
+        <ul id="todoList" class="todo-list"></ul>
+        <p id="todoCount" class="count"></p>
+    </section>
+</main>
+
+<script th:src="@{/webjars/jquery/3.7.1/dist/jquery.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

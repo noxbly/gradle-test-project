@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: maven-test-project
+  thymeleaf:
+    cache: false   # 개발 중 템플릿 수정이 바로 반영되도록 (운영에서는 true 권장)
